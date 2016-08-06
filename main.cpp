@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+using namespace std; // just used to stop  writing std again and again. 
 // enumeration for the four different suits of cards
 enum suits{
     CLUBS,
@@ -20,7 +20,7 @@ struct card{
 std::vector<card> initDeck();
 bool round();
 // BET function that handles a betting round
-bool gameOver();
+bool gameOver(int a, int b);//parameters introduced for comparison
 
 int main(){
     
@@ -72,7 +72,7 @@ int main(){
     }
     
     // run the game over function
-    bool playAgain = gameOver();
+    bool playAgain = gameOver(playerMoney,AIMoney);//gameover function is taking parameters for comparison.
     if(playAgain){          // run the application again if the player wants to play another game
         goto restart;
     }
@@ -175,8 +175,37 @@ bool round(){
 */
 
 // GAME OVER function with boolean return type
-bool gameOver(){
+bool gameOver(int a ,int b){
+    bool rt;
+    char choice;
+    std::cout<<"Your chips "<<a<<endl;
+    std::cout<<"Opponents chips"<<b<<endl;
+    if(a<0 && a<=b)
+     std::cout<<"You Losed the game, Better Luck Next Time...!"<<endl;
+    else
+     std::cout<<"Brilliant Perfomance, You won the game...!"<<endl;
+     
+    std::cout<<"Do you want to hit your luck again? (Y/N)"<<endl;
+    std::cin>>choice;
+    std::cout<<endl;
+    while(1)
+    if(choice=='Y' || choice=='y')
+     {rt=true;
+        break; 
+     }
+    else if(choice=='N' || choice=='n')
+    { rt=false;
+        break;
+    }
+    else
+    {
+        std::cout<<"Invalid choice try once again try once again(Y/N)"<<endl;
+        std::cin>>choice;
+        std::cout<<endl;
+    }
+   
     
+    return rt;
 }
 // takes player money and AI money as input
 /*
