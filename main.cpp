@@ -18,8 +18,9 @@ struct card{
 
 // function declarations
 std::vector<card> initDeck();
-// ROUND function that returns boolean
+bool round();
 // BET function that handles a betting round
+bool gameOver();
 
 int main(){
     
@@ -35,23 +36,46 @@ int main(){
     // -----GAME VARIABLES---
     // player money
     // AI money
-    // keep playing boolean
+    // quit game boolean
+    
+    restart:                    // restart flag for the program to return to if the player wants to play again
+    
+    // variables
+    int playerMoney;
+    int AIMoney;
+    bool quit;
+    // constants
+    const int BLIND = 10;
+    
     
     // -----GAME START-------
+    // INITIALIZE ALL GAME VARIABLES
     // ask the player how much money he wants to play with ( tell him the blinds )
+    std::cout << "How much money would you like to play with?" << std::endl;
+    std::cout << "(the blinds are $10)" << std::endl;
+    int userInput;
+    std::cin >> userInput;      // TODO: use a function to validate the user input
+    
     // give both the player and AI the same amount of starting money
-    // set the keep playing boolean to true
+    playerMoney = userInput;
+    AIMoney = userInput;
+    // set the quit boolean to false
+    quit = false;
     
     // -----ROUND START------
     // while the player still wants to play,
-    // call the ROUND function
-    // if the player has 0 or less dollars left, show a GAME OVER screen and tell the player he lost
+    while(!quit){
+        // call the ROUND function 
+        quit = round();     // have the quit flag equal the return type of the function to see if the player wants to keep playing
+        
+        // if the player/AI has 0 or less dollars left, quit the loop
+    }
     
-    // -----GAME OVER-------
-    // show the statistics of the games/ rounds
-    // ask the player if he/she wants to try again
-    // if YES, return to start of main
-    // if NO, quit the application
+    // run the game over function
+    bool playAgain = gameOver();
+    if(playAgain){          // run the application again if the player wants to play another game
+        goto restart;
+    }
     
     return 0;
     
@@ -93,6 +117,9 @@ std::vector<card> initDeck(){
 }
 
 // ROUND function with boolean return type
+bool round(){
+    
+}
 // boolean represents whether the player wants to keep playing or not
 /*
     FUNCTION VARIABLES:
@@ -115,6 +142,7 @@ std::vector<card> initDeck(){
     6. after revealing cards, show the winner and give the pot to the winners money
     7. ask the player whether he/she wants to keep playing 
     8. exit the function with true/false depending on player answer
+        - return true to quit and false to keep playing
     
 */
 
@@ -144,4 +172,18 @@ std::vector<card> initDeck(){
         
     all scenarios should have the function exit to this point, so return 0 in the end as an error
 
+*/
+
+// GAME OVER function with boolean return type
+bool gameOver(){
+    
+}
+// takes player money and AI money as input
+/*
+    1. print how much money the player and AI has left
+        -> if player has < 0$, tell the player that he/she lost!
+        -> if the AI has < 0$, tell the player that he/she won!
+    2. ask the player if he/she wants to play again
+        -> return true if the player wants to play again
+        -> return false if the player doesn't want to play again
 */
